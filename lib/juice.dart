@@ -17,22 +17,56 @@ class _JuiceState extends ConsumerState<Juice> {
       appBar: AppBar(
         title: Text(ref.watch(juiceProvider)),
       ),
-      body: GestureDetector(
-        onTap: () {
-          ref.read(countProvider1.state).state++;
-        },
-        child: Card(
-          child: SizedBox(
-            height: 300,
-            width: 300,
-            child: Column(
-              children: [
-                SizedBox(height: 200, child: Image.asset(ref.watch(FProvider))),
-                Text('飲んだ本数分タップしてください'),
-                Text(ref.watch(countProvider1.state).state.toString())
-              ],
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset(ref.watch(FProvider)),
+            Text('飲んだ本数分タップしてください'),
+            SizedBox(
+              width: 250,
+              child: Row(
+                children: [
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: RawMaterialButton(
+                        constraints: BoxConstraints.tightFor(
+                          width: 10,
+                        ),
+                        onPressed: () {
+                          ref.read(countProvider1.state).state++;
+                        },
+                        child: Text('+')),
+                  ),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.5),
+                      child: Text(
+                          ref.watch(countProvider1.state).state.toString()),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: RawMaterialButton(
+                        constraints: const BoxConstraints.tightFor(
+                          width: 10,
+                        ),
+                        onPressed: () {
+                          ref.read(countProvider1.state).state--;
+                        },
+                        child: Text('-'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
